@@ -1,4 +1,4 @@
-package main
+package parse
 
 import (
 	// "container/list"
@@ -15,7 +15,7 @@ type Link struct {
 	Text string
 }
 
-func main() {
+func Parse() {
 	file, err := os.Open("index.html")
 	if err != nil {
 		fmt.Println("Error opening file: ", err)
