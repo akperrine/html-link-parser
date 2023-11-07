@@ -1,10 +1,8 @@
 package parse
 
 import (
-	// "container/list"
 	"fmt"
-	"os"
-
+	"io"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -15,14 +13,9 @@ type Link struct {
 	Text string
 }
 
-func Parse() {
-	file, err := os.Open("index.html")
-	if err != nil {
-		fmt.Println("Error opening file: ", err)
-		return 
-	}
+func Parse(reader io.Reader) ([]Link, error) {
 
-	doc, err := html.Parse(file)
+	doc, err := html.Parse(reader)
 	if err != nil {
 		fmt.Println("Error parsing html: ", err)
 	}
@@ -37,6 +30,8 @@ func Parse() {
 	for _, link := range links {
 		fmt.Printf("{\nHref: %s\nText: %s\n}\n",link.Href, link.Text)
 	}
+
+	return links, nil
 }
 
 func findLinkNodes(n *html.Node) []*html.Node {
@@ -76,11 +71,9 @@ func getText(n *html.Node) string {
 	}
 
 	var text string
-
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
 		text += getText(c)
 	}
 
 	return strings.Join(strings.Fields(text), " ")
-	// return "hello"
 }
