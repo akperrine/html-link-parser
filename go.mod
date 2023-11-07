@@ -1,4 +1,4 @@
-module html-link-parser
+module github.com/akperrine/html-link-parser
 
 go 1.21.2
 
