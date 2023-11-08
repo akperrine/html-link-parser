@@ -27,10 +27,6 @@ func Parse(reader io.Reader) ([]Link, error) {
 		links = append(links, createLink(node))
 	}
 
-	for _, link := range links {
-		fmt.Printf("{\nHref: %s\nText: %s\n}\n",link.Href, link.Text)
-	}
-
 	return links, nil
 }
 
